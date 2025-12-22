@@ -1,11 +1,15 @@
 package com.hamidcharif.portfolio.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import com.hamidcharif.portfolio.model.Application;
 
+@Repository
 public interface ApplicationRepository extends MongoRepository<Application, Long>{
-    Application findByCompanyId(Long companyId);
+    Optional<Application> findByUserId(Long userId);
 
-    boolean existsByCompanyId(Long companyId);
+    boolean existsByUserId(Long userId);
 }

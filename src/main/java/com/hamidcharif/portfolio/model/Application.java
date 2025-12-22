@@ -12,13 +12,13 @@ public class Application {
     private Long id;
 
     @NotNull
-    private Long companyId;
+    private Long userId;
 
     @NotBlank
     private String letter;
 
-    public Application(Long companyId, String letter) {
-        this.companyId = companyId;
+    public Application(Long userId, String letter) {
+        this.userId = userId;
         this.letter = letter;
     }
 
@@ -26,12 +26,12 @@ public class Application {
 
     }
 
-    public Long getCompanyId(){
-        return companyId;
+    public Long getUserId(){
+        return userId;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     } 
 
     public String getLetter(){

@@ -1,14 +1,16 @@
 package com.hamidcharif.portfolio.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hamidcharif.portfolio.model.Company;
+import com.hamidcharif.portfolio.model.User;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Company findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);
 }

@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Company {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,13 +26,16 @@ public class Company {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    public Company(String name, String username, String password) {
+    @Column(columnDefinition = "String default USER")
+    private String roles;
+
+    public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
     }
 
-    public Company() {
+    public User() {
 
     }
 
@@ -59,5 +62,13 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRole() {
+        return roles;
+    }
+
+    public void setRole(String roles) {
+        this.roles = roles;
     }
 }
