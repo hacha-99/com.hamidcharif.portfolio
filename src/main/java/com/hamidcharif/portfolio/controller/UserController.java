@@ -10,39 +10,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hamidcharif.portfolio.security.AuthRequest;
-import com.hamidcharif.portfolio.service.CustomUserDetailsService;
+import com.hamidcharif.portfolio.security.RegisterRequest;
 import com.hamidcharif.portfolio.service.JwtService;
+import com.hamidcharif.portfolio.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 public class UserController {
 
-    private CustomUserDetailsService customUserDetailsService;
+    private UserService userService;
 
     private JwtService jwtService;
 
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    public UserController() {
-
-    }
-
-    public UserController(CustomUserDetailsService customUserDetailsService,
+    public UserController(UserService userRegistrationService,
             JwtService jwtService,
             AuthenticationManager authenticationManager) {
-        this.customUserDetailsService = customUserDetailsService;
+        this.userService = userRegistrationService;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
 
-    // @PostMapping("/addNewUser")
-    // public String addNewUser(@RequestBody UserDTO userDTO) {
-    //     // perhaps convert userDTO to normal User
-    //     return customUserDetailsService.addUser(userDTO);
-    // }
+    @PostMapping("/register")
+    public String addNewUser(@RequestBody @Valid RegisterRequest userDTO) {
+        return userService.addUser(userDTO);
+    }
 
-    @PostMapping("/createToken")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    @PostMapping("/login")
+    public String authenticateAndGetToken(@RequestBody @Valid AuthRequest authRequest) {
+        System.out.println("Login-Versuch für: " + authRequest.getUsername() + ", Password: " + authRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {

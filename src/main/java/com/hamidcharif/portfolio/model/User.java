@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 public class User {
@@ -19,14 +18,15 @@ public class User {
     @NotBlank
     private String name;
 
+    @NotBlank
     @Column(unique = true)
     private String username;
 
-    @Size(min = 7)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(columnDefinition = "String default USER")
+    @NotBlank
+    @Column(columnDefinition = "VARCHAR(255) default 'USER'")
     private String roles;
 
     public User(String name, String username, String password) {
@@ -64,11 +64,11 @@ public class User {
         this.name = name;
     }
 
-    public String getRole() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRole(String roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 }
