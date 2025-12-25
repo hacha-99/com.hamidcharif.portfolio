@@ -9,7 +9,7 @@ import com.hamidcharif.portfolio.model.Application;
 
 @Repository
 public interface ApplicationRepository extends MongoRepository<Application, Long>{
-    Optional<Application> findByUserId(Long userId);
+    Optional<Application> findByUsername(String username);
 
     boolean existsByUserId(Long userId);
 }

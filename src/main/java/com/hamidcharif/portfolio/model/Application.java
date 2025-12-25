@@ -4,21 +4,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Document
 public class Application {
     @Id
     private Long id;
 
-    @NotNull
-    private Long userId;
+    @NotBlank
+    private String username;
 
     @NotBlank
     private String letter;
 
-    public Application(Long userId, String letter) {
-        this.userId = userId;
+    public Application(String username, String letter) {
+        this.username = username;
         this.letter = letter;
     }
 
@@ -26,12 +25,12 @@ public class Application {
 
     }
 
-    public Long getUserId(){
-        return userId;
+    public String getUsername(){
+        return username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     } 
 
     public String getLetter(){
