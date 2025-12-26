@@ -26,7 +26,7 @@ public class User {
     private String password;
 
     @NotBlank
-    @Column(columnDefinition = "VARCHAR(255) default 'USER'")
+    @Column(columnDefinition = "VARCHAR(255) default 'ROLE_USER'")
     private String roles;
 
     public User(String name, String username, String password) {

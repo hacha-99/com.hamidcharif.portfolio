@@ -3,11 +3,10 @@ package com.hamidcharif.portfolio.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hamidcharif.portfolio.DTO.RegisterRequest;
 import com.hamidcharif.portfolio.exception.UserAlreadyExistsException;
 import com.hamidcharif.portfolio.model.User;
 import com.hamidcharif.portfolio.repository.UserRepository;
-import com.hamidcharif.portfolio.security.AuthRequest;
-import com.hamidcharif.portfolio.security.RegisterRequest;
 
 @Service
 public class UserService {

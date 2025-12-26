@@ -1,4 +1,4 @@
-package com.hamidcharif.portfolio.security;
+package com.hamidcharif.portfolio.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
