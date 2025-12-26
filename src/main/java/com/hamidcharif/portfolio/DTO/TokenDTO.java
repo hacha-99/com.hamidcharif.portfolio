@@ -1,5 +1,5 @@
 package com.hamidcharif.portfolio.DTO;
 
-public record AuthResponse(
+public record TokenDTO(
         String token) {
 }

@@ -3,7 +3,7 @@ package com.hamidcharif.portfolio.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hamidcharif.portfolio.DTO.RegisterRequest;
+import com.hamidcharif.portfolio.DTO.RegisterDTO;
 import com.hamidcharif.portfolio.exception.UserAlreadyExistsException;
 import com.hamidcharif.portfolio.model.User;
 import com.hamidcharif.portfolio.repository.UserRepository;
@@ -21,14 +21,14 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    public String addUser(RegisterRequest userDTO) {
-        if(repository.existsByUsername(userDTO.getUsername())){
+    public String addUser(RegisterDTO registerDTO) {
+        if(repository.existsByUsername(registerDTO.username())){
             throw new UserAlreadyExistsException();
         }
         User user = new User();
-        user.setName(userDTO.getName());
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user.setName(registerDTO.name());
+        user.setUsername(registerDTO.username());
+        user.setPassword(encoder.encode(registerDTO.password()));
         repository.save(user);
         return "User added successfully.";
     }

@@ -11,5 +11,5 @@ import com.hamidcharif.portfolio.model.Application;
 public interface ApplicationRepository extends MongoRepository<Application, Long>{
     Optional<Application> findByUsername(String username);
 
-    boolean existsByUserId(Long userId);
+    boolean existsByUsername(String username);
 }

@@ -1,8 +1,5 @@
 package com.hamidcharif.portfolio.controller;
 
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hamidcharif.portfolio.DTO.AuthRequest;
-import com.hamidcharif.portfolio.DTO.AuthResponse;
+import com.hamidcharif.portfolio.DTO.LoginDTO;
+import com.hamidcharif.portfolio.DTO.TokenDTO;
 import com.hamidcharif.portfolio.service.JwtService;
 import com.hamidcharif.portfolio.service.UserService;
 
@@ -35,12 +32,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> authenticateAndGetToken(@RequestBody @Valid AuthRequest authRequest) {
+    public ResponseEntity<TokenDTO> authenticateAndGetToken(@RequestBody @Valid LoginDTO loginDTO) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginDTO.username(), loginDTO.password()));
 
         String token = jwtService.createToken(authentication);
 
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(new TokenDTO(token));
     }
 }

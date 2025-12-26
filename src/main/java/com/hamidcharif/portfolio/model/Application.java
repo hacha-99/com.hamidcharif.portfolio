@@ -14,11 +14,11 @@ public class Application {
     private String username;
 
     @NotBlank
-    private String letter;
+    private String coverLetter;
 
-    public Application(String username, String letter) {
+    public Application(String username, String coverLetter) {
         this.username = username;
-        this.letter = letter;
+        this.coverLetter = coverLetter;
     }
 
     public Application() {
@@ -33,11 +33,11 @@ public class Application {
         this.username = username;
     } 
 
-    public String getLetter(){
-        return letter;
+    public String getCoverLetter(){
+        return coverLetter;
     }
 
-    public void setLetter(String letter){
-        this.letter = letter;
+    public void setCoverLetter(String coverLetter){
+        this.coverLetter = coverLetter;
     }
 }
