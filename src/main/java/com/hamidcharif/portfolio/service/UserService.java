@@ -8,6 +8,10 @@ import com.hamidcharif.portfolio.exception.UserAlreadyExistsException;
 import com.hamidcharif.portfolio.model.User;
 import com.hamidcharif.portfolio.repository.UserRepository;
 
+/**
+ * UserService.java is used to add new users (companies) to the database.
+ */
+
 @Service
 public class UserService {
 
@@ -21,6 +25,12 @@ public class UserService {
         this.encoder = encoder;
     }
 
+    /**
+     * Adds a new user to the database after making sure the new username is unique.
+     * 
+     * @param registerDTO
+     * @return A String confirming success.
+     */
     public String addUser(RegisterDTO registerDTO) {
         if(repository.existsByUsername(registerDTO.username())){
             throw new UserAlreadyExistsException();

@@ -9,6 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * CustomUserDetailsService.java overrides loadByUsername to properly access the user repo.
+ */
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -18,7 +22,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    // Method to load user details by username
+    /**
+     * Method to load user details by username
+     * 
+     * @param username The username that is searched for in the database.
+     * @return A CustomUserDetails object to extract user information from.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch user from the database by username

@@ -6,6 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Application.java is used to map the application from the mongodb.
+ */
+
 @Document
 public class Application {
     @Id

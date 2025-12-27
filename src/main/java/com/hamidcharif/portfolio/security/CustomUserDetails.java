@@ -10,6 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.hamidcharif.portfolio.model.User;
 
+/**
+ * CustomUserDetails.java implements UserDetails to provide a custom way of returning authorities, username, and password.
+ */
+
 public class CustomUserDetails implements UserDetails{
 
     private final User user;
@@ -20,10 +24,11 @@ public class CustomUserDetails implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        // create a list of all roles and map each role as a SimpleGrantedAuthority unto a new list
         return List.of(user.getRoles().split(","))
                 .stream()
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

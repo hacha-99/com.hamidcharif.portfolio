@@ -9,6 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * User.java is used to map the company data from the sql db.
+ */
+
 @Entity
 public class User {
     @Id

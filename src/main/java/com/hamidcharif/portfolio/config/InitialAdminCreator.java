@@ -1,4 +1,4 @@
-package com.hamidcharif.portfolio;
+package com.hamidcharif.portfolio.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.hamidcharif.portfolio.model.User;
 import com.hamidcharif.portfolio.repository.UserRepository;
+
+/**
+ * InitialAdminCreator.java implements ApplicationRunner which 
+ * has a method "run" that is called automatically upon program execution.
+ */
 
 @Component
 public class InitialAdminCreator implements ApplicationRunner {
@@ -22,6 +27,9 @@ public class InitialAdminCreator implements ApplicationRunner {
         this.adminPass = adminPass;
     }
 
+    /**
+     * This method is overridden to control what happens on program execution
+     */
     @Override
     public void run(ApplicationArguments args) {
         if (repository.count() == 0) {

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hamidcharif.portfolio.DTO.ApplicationDTO;
 import com.hamidcharif.portfolio.service.ApplicationService;
 
+/**
+ * ApplicationController.java provides endpoint to load applications from mongodb.
+ */
+
 @RestController
 @RequestMapping("/application")
 public class ApplicationController {

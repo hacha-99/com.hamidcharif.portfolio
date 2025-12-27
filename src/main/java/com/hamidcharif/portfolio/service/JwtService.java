@@ -1,6 +1,7 @@
 package com.hamidcharif.portfolio.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -13,6 +14,10 @@ import java.util.Date;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
+
+/**
+ * JwtService.java is where tokens are processed, created, validated.
+ */
 
 @Component
 public class JwtService {
@@ -31,6 +36,7 @@ public class JwtService {
                                 .map(GrantedAuthority::getAuthority)
                                 .toList())
                 .issuedAt(new Date())
+                // 30 minutes
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey())
                 .compact();
@@ -65,8 +71,11 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, String enteredUsername) {
-        final String tokenUsername = extractUsername(token);
-        return (tokenUsername.equals(enteredUsername) && !isTokenExpired(token));
+    public Boolean validateToken(String token) {
+        try {
+            return !isTokenExpired(token);
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
     }
 }

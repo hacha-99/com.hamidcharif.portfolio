@@ -16,6 +16,10 @@ import com.hamidcharif.portfolio.service.UserService;
 
 import jakarta.validation.Valid;
 
+/**
+ * AuthController.java provides endpoint to receive credentials and generate and return jwt upon authentication.
+ */
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

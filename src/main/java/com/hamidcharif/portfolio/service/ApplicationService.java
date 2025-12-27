@@ -8,6 +8,10 @@ import com.hamidcharif.portfolio.exception.ApplicationAlreadyExistsException;
 import com.hamidcharif.portfolio.model.Application;
 import com.hamidcharif.portfolio.repository.ApplicationRepository;
 
+/**
+ * ApplicationService.java provides functions to add and load applications from the corresponding repo.
+ */
+
 @Service
 public class ApplicationService {
 

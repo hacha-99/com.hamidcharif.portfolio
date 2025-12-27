@@ -16,6 +16,11 @@ import com.hamidcharif.portfolio.service.JwtService;
 
 import java.io.IOException;
 
+/**
+ * JwtAuthFilter.java is the filter that is placed in the security filter chain to process and authenticate tokens.
+ * Its doFilterInternal method is executed once per API request.
+ */
+
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -33,19 +38,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
+        // extract the token from the request
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             username = jwtService.extractUsername(token);
         }
 
+        // authenticate token and set the authentication status upon successful validation
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtService.validateToken(token, userDetails.getUsername())) {
+            if (jwtService.validateToken(token)) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // authToken.setDetails only needed when coupling ip addresses to security decisions or for request metadata
+                // authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

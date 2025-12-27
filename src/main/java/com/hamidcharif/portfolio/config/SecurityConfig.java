@@ -17,6 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.hamidcharif.portfolio.security.JwtAuthFilter;
 
+/**
+ * SecurityConfig.java provides configuration for endpoint authorization and encoder and authentication beans.
+ */
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -30,12 +34,12 @@ public class SecurityConfig {
     this.jwtAuthFilter = jwtAuthFilter;
     this.userDetailsService = userDetailsService;
 }
-    /* 
+    /**
      * Main security configuration
      * Defines endpoint access rules and JWT filter setup
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             // Disable CSRF (not needed for stateless JWT)
             .csrf(csrf -> csrf.disable())
@@ -64,7 +68,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /* 
+    /**
      * Password encoder bean (uses BCrypt hashing)
      * Critical for secure password storage
      */
@@ -73,7 +77,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /* 
+    /**
      * Authentication provider configuration
      * Links UserDetailsService and PasswordEncoder
      */
@@ -84,7 +88,7 @@ public class SecurityConfig {
         return provider;
     }
 
-    /* 
+    /**
      * Authentication manager bean
      * Required for programmatic authentication (e.g., in /createToken)
      */

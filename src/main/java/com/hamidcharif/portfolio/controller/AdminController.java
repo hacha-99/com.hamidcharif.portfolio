@@ -15,6 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * AdminController.java provides endpoints for the admin to persist users and application. 
+ */
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
