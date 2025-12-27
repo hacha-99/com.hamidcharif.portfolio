@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 @Document
 public class Application {
     @Id
-    private Long id;
+    private String id;
 
     @NotBlank
     @Column(unique = true)

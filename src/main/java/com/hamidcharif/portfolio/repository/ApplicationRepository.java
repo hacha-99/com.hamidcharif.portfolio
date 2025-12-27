@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.hamidcharif.portfolio.model.Application;
 
 @Repository
-public interface ApplicationRepository extends MongoRepository<Application, Long>{
+public interface ApplicationRepository extends MongoRepository<Application, String>{
     Optional<Application> findByUsername(String username);
 
     boolean existsByUsername(String username);
