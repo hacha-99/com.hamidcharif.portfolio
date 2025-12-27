@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login").permitAll()
                 
                 // Role-based endpoints
-                .requestMatchers("/auth/admin/**", "/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 
                 // All other endpoints require authentication
                 .anyRequest().authenticated()

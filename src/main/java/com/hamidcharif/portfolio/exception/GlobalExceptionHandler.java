@@ -14,6 +14,12 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse("USER_ALREADY_EXISTS", ex.getMessage()));
     }
 
+    @ExceptionHandler(ApplicationAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleApplicationAlreadyExists(ApplicationAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("APPLICATION_ALREADY_EXISTS", ex.getMessage()));
+    }
+
     @ExceptionHandler(ApplicationNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleApplicationNotFound(ApplicationNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
