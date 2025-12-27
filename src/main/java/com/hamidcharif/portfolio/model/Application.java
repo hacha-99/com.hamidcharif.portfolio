@@ -3,6 +3,7 @@ package com.hamidcharif.portfolio.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
 @Document
@@ -11,6 +12,7 @@ public class Application {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String username;
 
     @NotBlank

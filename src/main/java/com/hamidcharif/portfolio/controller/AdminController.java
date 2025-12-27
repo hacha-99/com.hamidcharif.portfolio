@@ -38,6 +38,4 @@ public class AdminController {
         applicationService.addApplication(applicationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
-    // TODO: Add Controller for users to load application from api + unify api naming (like /api/auth, /api/admin, /api/application ?)
 }

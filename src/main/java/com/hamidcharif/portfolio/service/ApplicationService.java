@@ -1,20 +1,24 @@
 package com.hamidcharif.portfolio.service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
 import com.hamidcharif.portfolio.DTO.ApplicationDTO;
 import com.hamidcharif.portfolio.exception.ApplicationAlreadyExistsException;
 import com.hamidcharif.portfolio.model.Application;
 import com.hamidcharif.portfolio.repository.ApplicationRepository;
 
+@Service
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
 
-    public ApplicationService(ApplicationRepository applicationRepository){
+    public ApplicationService(ApplicationRepository applicationRepository) {
         this.applicationRepository = applicationRepository;
     }
 
-    public String addApplication(ApplicationDTO applicationDTO){
-        if(applicationRepository.existsByUsername(applicationDTO.username())){
+    public String addApplication(ApplicationDTO applicationDTO) {
+        if (applicationRepository.existsByUsername(applicationDTO.username())) {
             throw new ApplicationAlreadyExistsException();
         }
         Application application = new Application();
@@ -23,5 +27,13 @@ public class ApplicationService {
 
         applicationRepository.save(application);
         return "Application added successfully.";
+    }
+
+    public ApplicationDTO loadApplication(String username) {
+        Application application = applicationRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        
+        ApplicationDTO applicationDTO = new ApplicationDTO(application.getCoverLetter(), username);
+        return applicationDTO; 
     }
 }
