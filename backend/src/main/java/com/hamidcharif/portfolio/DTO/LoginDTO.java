@@ -1,10 +1,13 @@
 package com.hamidcharif.portfolio.DTO;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record LoginDTO(
-        @NotBlank String username,
+        @Pattern(regexp = "^[a-zA-Z0-9]+$")
+        String username,
 
-        @Size(min = 7) String password) {
+        @Pattern(regexp = "^[a-zA-Z0-9]$")
+        @Size(min = 7) 
+        String password) {
 }

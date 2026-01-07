@@ -2,6 +2,7 @@ package com.hamidcharif.portfolio.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +18,8 @@ import com.hamidcharif.portfolio.service.JwtService;
 import java.io.IOException;
 
 /**
- * JwtAuthFilter.java is the filter that is placed in the security filter chain to process and authenticate tokens.
+ * JwtAuthFilter.java is the filter that is placed in the security filter chain
+ * to process and authenticate tokens.
  * Its doFilterInternal method is executed once per API request.
  */
 
@@ -33,30 +35,59 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
-        String token = null;
-        String username = null;
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
-        // extract the token from the request
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+        String token = extractTokenFromCookie(request);
+
+        if (token == null ||
+                SecurityContextHolder.getContext().getAuthentication() != null) {
+            filterChain.doFilter(request, response);
+            return;
         }
 
-        // authenticate token and set the authentication status upon successful validation
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (jwtService.validateToken(token)) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities());
-                // authToken.setDetails only needed when coupling ip addresses to security decisions or for request metadata
-                // authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+        if (!jwtService.validateToken(token)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String username = jwtService.extractUsername(token);
+
+        if (username == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities());
+
+        // authToken.setDetails only needed when coupling ip addresses to security
+        // decisions or for request metadata
+        // authToken.setDetails(new
+        // WebAuthenticationDetailsSource().buildDetails(request));
+
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        filterChain.doFilter(request, response);
+    }
+
+    private String extractTokenFromCookie(HttpServletRequest request) {
+
+        if (request.getCookies() == null) {
+            return null;
+        }
+
+        for (Cookie cookie : request.getCookies()) {
+            if ("access_token".equals(cookie.getName())) {
+                return cookie.getValue();
             }
         }
-        filterChain.doFilter(request, response);
+        return null;
     }
 }
