@@ -1,10 +1,10 @@
 package com.hamidcharif.portfolio.service;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.hamidcharif.portfolio.DTO.ApplicationDTO;
 import com.hamidcharif.portfolio.exception.ApplicationAlreadyExistsException;
+import com.hamidcharif.portfolio.exception.ApplicationNotFoundException;
 import com.hamidcharif.portfolio.model.Application;
 import com.hamidcharif.portfolio.repository.ApplicationRepository;
 
@@ -35,7 +35,7 @@ public class ApplicationService {
 
     public ApplicationDTO loadApplication(String username) {
         Application application = applicationRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username));
+                .orElseThrow(() -> new ApplicationNotFoundException());
         
         ApplicationDTO applicationDTO = new ApplicationDTO(application.getCoverLetter(), username);
         return applicationDTO; 

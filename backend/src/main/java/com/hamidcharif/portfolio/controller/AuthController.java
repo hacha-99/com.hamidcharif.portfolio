@@ -45,30 +45,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateAndGetToken(@RequestBody @Valid LoginDTO loginDTO) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDTO.username(), loginDTO.password()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDTO.username(), loginDTO.password()));
 
-            String token = jwtService.createToken(authentication);
+        String token = jwtService.createToken(authentication);
 
-            ResponseCookie cookie = ResponseCookie.from("access_token", token)
-                    .httpOnly(true)
-                    .secure(true) // TODO PROD: true | DEV: false
-                    .sameSite("Lax")
-                    .path("/")
-                    .maxAge(Duration.ofMinutes(15))
-                    .build();
+        ResponseCookie cookie = ResponseCookie.from("access_token", token)
+                .httpOnly(true)
+                .secure(true) // TODO PROD: true | DEV: false
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(Duration.ofMinutes(15))
+                .build();
 
-            return ResponseEntity
-                    .ok()
-                    .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                    .build();
-
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "invalid_credentials"));
-        }
-
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .build();
     }
 
     @PostMapping("/logout")
