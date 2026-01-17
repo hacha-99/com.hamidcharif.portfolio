@@ -1,7 +1,5 @@
 package com.hamidcharif.portfolio.exception;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
