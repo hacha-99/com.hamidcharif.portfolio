@@ -1,1 +1,27 @@
-<router-outlet />
+<div class="app-layout min-h-screen flex flex-col">
+  @if (showNavbar) {
+    <header class="bg-gray-900 text-white">
+      <div class="flex items-center px-6 h-16">
+        <div class="logo flex items-center">
+          <a class="flex items-center">
+            <img src="assets/logo.svg" alt="logo" class="h-8 w-8">
+            <h1 class="ml-4 text-xl font-semibold">Portfolio</h1>
+          </a>
+        </div>
+        <nav class="ml-auto">
+          <ul class="flex space-x-6">
+            <li><a routerLink="/home" routerLinkActive="text-blue-400" class="hover:text-blue-300">Home</a></li>
+            <li><a class="hover:text-blue-300 cursor-pointer">Account</a></li>
+            <li><a class="hover:text-blue-300 cursor-pointer">Profile</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  }
+  <main class="flex-1">
+    <div class="inner-content h-full">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+<app-dark-mode-toggle />

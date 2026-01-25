@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-content {
+  background: #fff;
+  height: 100%;
+}

@@ -1,3 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    * {
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+@layer components {
+    .floating-label {
+        @apply text-gray-500 font-medium border border-transparent rounded-md;
+        @apply absolute top-3 left-3 pointer-events-none;
+        @apply transition-all duration-200 ease-in;
+
+        /* Floating-Effekt */
+        @apply peer-focus:-top-3 peer-focus:text-black peer-focus:bg-white;
+        @apply peer-[:not(:placeholder-shown)]:-top-3;
+        @apply peer-[:not(:placeholder-shown)]:text-black;
+        @apply peer-[:not(:placeholder-shown)]:bg-white;
+
+        /* Dark Mode */
+        @apply dark:text-gray-500;
+        @apply dark:bg-gray-700;
+        @apply dark:peer-focus:bg-gray-700 dark:peer-focus:text-white;
+        @apply dark:peer-[:not(:placeholder-shown)]:bg-gray-700;
+        @apply dark:peer-[:not(:placeholder-shown)]:text-white;
+    }
+}
