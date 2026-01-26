@@ -13,21 +13,33 @@
 
 @layer components {
     .floating-label {
-        @apply text-gray-500 font-medium border border-transparent rounded-md;
-        @apply absolute top-3 left-3 pointer-events-none;
+        @apply text-gray-500 font-medium bg-transparent border border-transparent rounded-md;
+        @apply absolute top-4 left-3 pointer-events-none;
         @apply transition-all duration-200 ease-in;
 
         /* Floating-Effekt */
-        @apply peer-focus:-top-3 peer-focus:text-black peer-focus:bg-white;
-        @apply peer-[:not(:placeholder-shown)]:-top-3;
-        @apply peer-[:not(:placeholder-shown)]:text-black;
-        @apply peer-[:not(:placeholder-shown)]:bg-white;
+        @apply peer-focus:top-1 peer-focus:text-xs;
+        @apply peer-[:not(:placeholder-shown)]:top-1 peer-[:not(:placeholder-shown)]:text-xs;
+        /* @apply peer-[:not(:placeholder-shown)]:text-black; */
 
         /* Dark Mode */
         @apply dark:text-gray-500;
-        @apply dark:bg-gray-700;
-        @apply dark:peer-focus:bg-gray-700 dark:peer-focus:text-white;
-        @apply dark:peer-[:not(:placeholder-shown)]:bg-gray-700;
-        @apply dark:peer-[:not(:placeholder-shown)]:text-white;
+        /* @apply dark:peer-focus:text-white; */
+        /* @apply dark:peer-[:not(:placeholder-shown)]:text-white; */
     }
+}
+
+html{
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+html.dark {
+  background-image: url('/images/deep_blue_landscape.jpg');
+}
+
+html {
+  background-image: url('/images/lightmode_landscape.jpg');
 }
