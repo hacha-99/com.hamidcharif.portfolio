@@ -4,7 +4,7 @@
 }
 
 input {
-  width: 100%;
+  min-width: 100%;
   border: 1px solid #d1d5db;
   border-radius: 4px;
 }
@@ -26,6 +26,7 @@ button {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
+  overflow: hidden;
 }
 
 button:hover:not(:disabled) {

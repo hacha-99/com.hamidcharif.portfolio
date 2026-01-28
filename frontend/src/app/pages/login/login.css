@@ -1,0 +1,23 @@
+.login-hero-text {
+    /* cut off 100% from the left */
+  clip-path: inset(0 0 0 100%);
+  animation: revealText 2s cubic-bezier(.1,.95,.5,1) forwards;
+  animation-delay: 1s;
+}
+
+@keyframes revealText {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.slide-border{
+    animation: slideAnimation 2s cubic-bezier(.1,.95,.5,1) forwards;
+    animation-delay: 1s;
+}
+
+@keyframes slideAnimation {
+    to {
+        left: 0;
+    }
+}
