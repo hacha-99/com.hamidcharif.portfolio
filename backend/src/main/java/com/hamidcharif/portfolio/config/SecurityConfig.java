@@ -53,7 +53,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/csp-report"))
+                        .ignoringRequestMatchers("/auth/status", "/csp-report"))
 
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {
