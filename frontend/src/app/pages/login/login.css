@@ -1,5 +1,5 @@
 .login-hero-text {
-    /* cut off 100% from the left */
+    /* cut off 100% from left to right */
   clip-path: inset(0 0 0 100%);
   animation: revealText 2s cubic-bezier(.1,.95,.5,1) forwards;
   animation-delay: 1s;
