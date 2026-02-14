@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, HostListener, inject, signal} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-login-card',
     templateUrl: './login-card.html',
     styleUrl: './login-card.css',
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, RouterLink],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginCard {
